@@ -1,5 +1,7 @@
 # java-bookstore
 
+APIDOCS: https://ampersand-bookstore.herokuapp.com/swagger-ui.html#/
+
 ## Introduction
 
 This is a bookstore with books who have authors and can be found in a section of the store.
