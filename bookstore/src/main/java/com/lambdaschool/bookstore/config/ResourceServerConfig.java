@@ -1,6 +1,7 @@
 package com.lambdaschool.bookstore.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -36,17 +37,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                          "/webjars/**",
                          "/createnewuser")
             .permitAll()
-            .antMatchers("/users/**",
-                         "/useremails/**",
-                         "/oauth/revoke-token",
-                         "/logout")
+            .antMatchers( "/data/**",
+                        "/users/**",
+                        "/useremails/**",
+                        "/oauth/revoke-token",
+                        "/logout")
             .authenticated()
             // restrict application data...
             // .antMatchers("/books", "/authors").hasAnyRole("ADMIN", "USER", "DATA")
             // .antMatchers("/data/**").hasAnyRole("ADMIN", "DATA")
             //
             // restrict based on HttpMethod and endpoint
-            // .antMatchers(HttpMethod.GET, "/users/user/**").hasAnyRole("USER")
+            .antMatchers(HttpMethod.POST).hasAnyRole("DATA", "ADMIN")
+            .antMatchers(HttpMethod.PUT).hasAnyRole("DATA", "ADMIN")
+            .antMatchers(HttpMethod.DELETE).hasAnyRole("DATA", "ADMIN")
             .antMatchers("/roles/**",
                          "/actuator/**")
             .hasAnyRole("ADMIN")
