@@ -11,14 +11,9 @@ import java.util.List;
 
 public interface BookRepository extends PagingAndSortingRepository<Book, Long>
 {
-    Book findByBookname(String bookname);
-
-    List<Book> findByBooknameContainingIgnoreCase(String name,
-                                                  Pageable pageable);
-
     @Query(value = "SELECT COUNT(*) as count FROM wrote WHERE authorid = :authorid AND bookid = :bookid",
             nativeQuery = true)
-    com.lambdaschool.starthere.view.JustTheCount checkWrote(long bookid,
+    com.lambdaschool.bookstore.view.JustTheCount checkWrote(long bookid,
                                                             long authorid);
 
     @Transactional

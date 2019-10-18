@@ -2,6 +2,7 @@ package com.lambdaschool.bookstore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.bookstore.logging.Loggable;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,10 +13,12 @@ import java.util.List;
 @Table(name = "sections")
 public class Section extends Auditable
 {
+    @ApiModelProperty(name = "sectionid", value = "primary key for Section", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long sectionid;
 
+    @ApiModelProperty(name = "sectionname", value = "Section Name", required = true, example = "Genre")
     @Column(nullable = false,
             unique = true)
     private String sectionname;

@@ -1,6 +1,6 @@
 package com.lambdaschool.bookstore.config;
 
-import com.lambdaschool.starthere.BookStoreApplication;
+import com.lambdaschool.bookstore.BookStoreApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

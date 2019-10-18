@@ -1,6 +1,5 @@
 package com.lambdaschool.bookstore.services;
 
-import com.lambdaschool.bookstore.exceptions.ResourceFoundException;
 import com.lambdaschool.bookstore.exceptions.ResourceNotFoundException;
 import com.lambdaschool.bookstore.models.Section;
 import com.lambdaschool.bookstore.repository.SectionRepository;
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

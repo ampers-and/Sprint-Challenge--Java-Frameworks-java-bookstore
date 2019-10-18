@@ -11,11 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Loggable
@@ -39,7 +44,8 @@ public class BookController
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")})
     @GetMapping(value = "/books", produces = {"application/json"})
-    public ResponseEntity<?> listAllBooks(HttpServletRequest request, @PageableDefault(page = 0, size = 3) Pageable pageable)
+    public ResponseEntity<?> listAllBooks(HttpServletRequest request,
+                                          @PageableDefault(page = 0, size = 3) Pageable pageable)
     {
         logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
 
@@ -54,7 +60,9 @@ public class BookController
             @ApiResponse(code = 500, message = "Error Editing Book", response = ErrorDetail.class
             )})
     @PutMapping(value = "/{bookid}")
-    public ResponseEntity<?> updateBook( HttpServletRequest request, @RequestBody Book updateBook, @PathVariable long bookid)
+    public ResponseEntity<?> updateBook(HttpServletRequest request,
+                                        @RequestBody Book updateBook,
+                                        @PathVariable long bookid)
     {
         logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
 
@@ -69,7 +77,7 @@ public class BookController
             @ApiResponse(code = 500, message = "Error deleting Book", response = ErrorDetail.class
             )})
     @DeleteMapping("/{bookid}")
-    public ResponseEntity<?> deleteBookById( HttpServletRequest request, @PathVariable long bookid)
+    public ResponseEntity<?> deleteBookById(HttpServletRequest request, @PathVariable long bookid)
     {
         logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
 
@@ -94,4 +102,42 @@ public class BookController
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    //STRETCH
+    @ApiOperation(value = "Retrieves a Book by Id.", response = Book.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Book Found", response = Book.class),
+            @ApiResponse(code = 404, message = "Book Not Found", response = ErrorDetail.class
+            )})
+    @GetMapping(value = "/book/{bookId}",
+            produces = {"application/json"})
+    public ResponseEntity<?> getBookById(HttpServletRequest request, @PathVariable Long bookId)
+    {
+        logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
+
+        Book r = bookService.findBookById(bookId);
+        return new ResponseEntity<>(r, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Adds a New Book.", notes = "The newly created book id will be sent in the location header.", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "New Book Added Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error Adding New Book", response = ErrorDetail.class
+            )})
+    @PostMapping(value = "/book",
+            consumes = {"application/json"},
+            produces = {"application/json"})
+    public ResponseEntity<?> addNewBook( HttpServletRequest request, @Valid @RequestBody Book newBook) throws URISyntaxException
+    {
+        logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
+
+        newBook = bookService.save(newBook);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newBookURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{bookid}").buildAndExpand(newBook.getBookid()).toUri();
+        responseHeaders.setLocation(newBookURI);
+
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+
 }

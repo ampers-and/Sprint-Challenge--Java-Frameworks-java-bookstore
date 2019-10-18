@@ -2,6 +2,7 @@ package com.lambdaschool.bookstore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.bookstore.logging.Loggable;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,12 +14,14 @@ import java.util.Objects;
        uniqueConstraints = {@UniqueConstraint(columnNames = {"bookid", "authorid"})})
 public class Wrote extends Auditable implements Serializable
 {
+    @ApiModelProperty(name = "bookid", value = "primary key for Book", required = true, example = "1")
     @Id
     @ManyToOne
     @JoinColumn(name = "bookid")
     @JsonIgnoreProperties("wrote")
     private Book book;
 
+    @ApiModelProperty(name = "authorid", value = "primary key for Author", required = true, example = "1")
     @Id
     @ManyToOne
     @JoinColumn(name = "authorid")

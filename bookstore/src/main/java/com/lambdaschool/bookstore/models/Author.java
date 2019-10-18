@@ -2,6 +2,7 @@ package com.lambdaschool.bookstore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lambdaschool.bookstore.logging.Loggable;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,12 +13,16 @@ import java.util.List;
 @Table(name = "authors")
 public class Author extends Auditable
 {
+    @ApiModelProperty(name = "authorid", value = "primary key for Author", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long authorid;
 
-    private String lastname;
-    private String firstname;
+    @ApiModelProperty(name = "fname", value = "Author's First Name", example = "Java")
+    private String fname;
+
+    @ApiModelProperty(name = "lname", value = "Author's Last Name", example = "Spring")
+    private String lname;
 
     @OneToMany(mappedBy = "author",
             cascade = CascadeType.ALL)
@@ -28,10 +33,10 @@ public class Author extends Auditable
     {
     }
 
-    public Author(String lastname, String firstname)
+    public Author(String fname, String lname)
     {
-        this.lastname = lastname;
-        this.firstname = firstname;
+        this.fname = fname;
+        this.lname = lname;
     }
 
     public long getAuthorid()
@@ -46,22 +51,22 @@ public class Author extends Auditable
 
     public String getLastname()
     {
-        return lastname;
+        return lname;
     }
 
     public void setLastname(String lastname)
     {
-        this.lastname = lastname;
+        this.lname = lastname;
     }
 
     public String getFirstname()
     {
-        return firstname;
+        return fname;
     }
 
     public void setFirstname(String firstname)
     {
-        this.firstname = firstname;
+        this.fname = firstname;
     }
 
     public List<Wrote> getWrote()
@@ -79,8 +84,8 @@ public class Author extends Auditable
     {
         return "Author{" +
                 "authorid=" + authorid +
-                ", lastname='" + lastname + '\'' +
-                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lname + '\'' +
+                ", firstname='" + fname + '\'' +
                 ", wrote=" + wrote +
                 '}';
     }

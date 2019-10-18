@@ -1,4 +1,4 @@
-package com.lambdaschool.starthere.controllers;
+package com.lambdaschool.bookstore.controllers;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.codehaus.jackson.map.ObjectMapper;

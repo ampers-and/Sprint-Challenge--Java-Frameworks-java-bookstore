@@ -1,11 +1,11 @@
-package com.lambdaschool.starthere.controllers;
+package com.lambdaschool.bookstore.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lambdaschool.starthere.models.Role;
-import com.lambdaschool.starthere.models.User;
-import com.lambdaschool.starthere.models.UserRoles;
-import com.lambdaschool.starthere.models.Useremail;
-import com.lambdaschool.starthere.services.UserService;
+import com.lambdaschool.bookstore.models.Role;
+import com.lambdaschool.bookstore.models.User;
+import com.lambdaschool.bookstore.models.UserRoles;
+import com.lambdaschool.bookstore.models.Useremail;
+import com.lambdaschool.bookstore.services.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package com.lambdaschool.bookstore.repository;
 
 import com.lambdaschool.bookstore.models.Role;
-import com.lambdaschool.starthere.view.JustTheCount;
+import com.lambdaschool.bookstore.view.JustTheCount;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

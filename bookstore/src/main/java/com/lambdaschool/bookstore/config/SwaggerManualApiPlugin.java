@@ -1,7 +1,7 @@
 package com.lambdaschool.bookstore.config;
 
 import com.fasterxml.classmate.TypeResolver;
-import com.lambdaschool.starthere.models.UserLogin;
+import com.lambdaschool.bookstore.models.UserLogin;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;

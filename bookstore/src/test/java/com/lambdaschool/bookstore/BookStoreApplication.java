@@ -1,4 +1,4 @@
-package com.lambdaschool.starthere;
+package com.lambdaschool.bookstore;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 // @EnableJpaAuditing
 @SpringBootApplication
-public class StartHereApplication
+public class BookStoreApplication
 {
-    private static final Logger logger = LoggerFactory.getLogger(com.lambdaschool.starthere.BookStoreApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(com.lambdaschool.bookstore.BookStoreApplication.class);
     private static boolean stop = false;
 
     @Autowired
@@ -37,7 +37,7 @@ public class StartHereApplication
 
         if (!stop)
         {
-            ApplicationContext ctx = SpringApplication.run(com.lambdaschool.starthere.BookStoreApplication.class, args);
+            ApplicationContext ctx = SpringApplication.run(com.lambdaschool.bookstore.BookStoreApplication.class, args);
 
             DispatcherServlet dispatcherServlet = (DispatcherServlet) ctx.getBean("dispatcherServlet");
             dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
